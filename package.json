@@ -1,0 +1,32 @@
+{
+  "name": "convertor_bsu_task",
+  "version": "1.0.0",
+  "description": "BSU Software Design and Development Technologies - Training task",
+  "main": "dist/index.js",
+  "scripts": {
+    "build-ts": "tsc",
+    "start": "npm run serve",
+    "serve": "node dist/index.js",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliaksandrkrasnou/convertor_bsu_task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aliaksandrkrasnou/convertor_bsu_task/issues"
+  },
+  "homepage": "https://github.com/aliaksandrkrasnou/convertor_bsu_task#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "express": "^4.16.4"
+  }
+}

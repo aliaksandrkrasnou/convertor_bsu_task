@@ -10,3 +10,21 @@ BSU Software Design and Development Technologies - Training task
 Пример запроса на преобразование -  Convert(""-10"",""C"", ""K"")- из цельсия в кельвины;
 Код может бюыть написан на любом языке и размещен в репозитории на GitHub."	
 
+# How to
+## Install
+```
+npm install
+``` 
+## Run
+### Compile code changes on the fly
+```
+npm run watch-ts
+```
+### Running server
+```
+npm run watch-node
+```
+##API
+```
+URL: http://localhost:3000/
+```
