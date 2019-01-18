@@ -26,5 +26,18 @@ npm run watch-node
 ```
 ##API
 ```
-URL: http://localhost:3000/
+Example: http://localhost:3000/?value=1&from=pood&to=pound
 ```
+###Params
+**value** - value to be converted
+
+**from** = name
+
+**to** = name
+
+Where name is a string value from the table below: 
+```
+Ditance Types: 'm', 'mi', 'vst'
+Weight Types: 'gr', 'pound', 'pood'
+Temperature Types: 'C', 'K', 'F'
+``` 
