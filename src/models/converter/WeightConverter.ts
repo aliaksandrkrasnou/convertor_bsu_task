@@ -2,7 +2,31 @@ import IConverter from './IConverter';
 import {WeightTypes} from '../constants/Types';
 
 export default class WeightConverter implements IConverter {
+    get iConverter(): IConverter {
+        return this._iConverter;
+    }
+
+    set iConverter(value: IConverter) {
+        this._iConverter = value;
+    }
+
+    private _iConverter: IConverter;
+
     Convert(value: string, params: any): any {
+        const {from, to} = params;
+        switch (from) {
+            case WeightTypes.Pounds:
+            case WeightTypes.Poods:
+            case WeightTypes.Grams: {
+                return this.ConvertWeight(value, params);
+            }
+            default: {
+                return this._iConverter.Convert(value, params);
+            }
+        }
+    }
+
+    private ConvertWeight(value: string, params: any): number {
         const {from, to} = params;
         switch (from) {
             case WeightTypes.Grams: {
@@ -11,7 +35,7 @@ export default class WeightConverter implements IConverter {
                         return this.ConvertGramsPounds(value, true);
                     }
                     case WeightTypes.Grams: {
-                        return value;
+                        return parseFloat(value);
                     }
                     case WeightTypes.Poods: {
                         return this.ConvertGramsPoods(value, true);
@@ -19,7 +43,7 @@ export default class WeightConverter implements IConverter {
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Weight Convert Error';
                         }
                     }
                 }
@@ -27,7 +51,7 @@ export default class WeightConverter implements IConverter {
             case WeightTypes.Pounds: {
                 switch (to) {
                     case WeightTypes.Pounds: {
-                        return value;
+                        return parseFloat(value);
                     }
                     case WeightTypes.Grams: {
                         return this.ConvertGramsPounds(value, false);
@@ -38,7 +62,7 @@ export default class WeightConverter implements IConverter {
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Weight Convert Error';
                         }
                     }
                 }
@@ -52,12 +76,12 @@ export default class WeightConverter implements IConverter {
                         return this.ConvertGramsPoods(value, false);
                     }
                     case WeightTypes.Poods: {
-                        return value;
+                        return parseFloat(value);
                     }
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Weight Convert Error';
                         }
                     }
                 }
@@ -65,7 +89,7 @@ export default class WeightConverter implements IConverter {
             default: {
                 throw new class implements Error {
                     message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                    name: string = 'Convert Error';
+                    name: string = 'Weight Convert Error';
                 }
             }
         }
@@ -91,7 +115,7 @@ export default class WeightConverter implements IConverter {
         * direction: boolean - if true, convert from Grams to Poods
          */
         const massValue: number = 16380.687;
-        const num: number = Number(value);
+        const num: number = parseFloat(value);
         return direction ?
             num / massValue :
             num * massValue;
@@ -104,7 +128,7 @@ export default class WeightConverter implements IConverter {
         * direction: boolean - if true, convert from Pounds to Poods
          */
         const massValue: number = 36.113;
-        const num: number = Number(value);
+        const num: number = parseFloat(value);
         return direction ?
             num / massValue :
             num * massValue;
