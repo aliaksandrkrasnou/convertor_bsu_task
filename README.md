@@ -24,11 +24,11 @@ npm run watch-ts
 ```
 npm run watch-node
 ```
-##API
+## API
 ```
 Example: http://localhost:3000/?value=1&from=pood&to=pound
 ```
-###Params
+### Params
 **value** - value to be converted
 
 **from** = name
