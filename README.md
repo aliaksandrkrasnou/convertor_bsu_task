@@ -11,18 +11,17 @@ BSU Software Design and Development Technologies - Training task
 Код может бюыть написан на любом языке и размещен в репозитории на GitHub."	
 
 # How to
-## Install
+## Install dependencies
 ```
 npm install
 ``` 
+## Compile Typescript into Javascript
+```
+npm run build-ts
+``` 
 ## Run
-### Compile code changes on the fly
 ```
-npm run watch-ts
-```
-### Running server
-```
-npm run watch-node
+npm run serve
 ```
 ## API
 ```
