@@ -2,7 +2,31 @@ import IConverter from './IConverter';
 import {DistanceTypes} from '../constants/Types';
 
 export default class DistanceConverter implements IConverter {
+    get iConverter(): IConverter {
+        return this._iConverter;
+    }
+
+    set iConverter(value: IConverter) {
+        this._iConverter = value;
+    }
+
+    private _iConverter: IConverter;
+
     Convert(value: string, params: any): any {
+        const {from, to} = params;
+        switch (from) {
+            case DistanceTypes.Metres:
+            case DistanceTypes.Miles:
+            case DistanceTypes.Versts: {
+                return this.ConvertDistance(value, params);
+            }
+            default: {
+                return this._iConverter.Convert(value, params);
+            }
+        }
+    }
+
+    private ConvertDistance(value: string, params: any): number {
         const {from, to} = params;
         switch (from) {
             case DistanceTypes.Miles: {
@@ -11,7 +35,7 @@ export default class DistanceConverter implements IConverter {
                         return this.ConvertMileMetre(value, true);
                     }
                     case DistanceTypes.Miles: {
-                        return value;
+                        return parseFloat(value);
                     }
                     case DistanceTypes.Versts: {
                         return this.ConvertMileVerst(value, true);
@@ -19,7 +43,7 @@ export default class DistanceConverter implements IConverter {
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Distance Convert Error';
                         }
                     }
                 }
@@ -27,7 +51,7 @@ export default class DistanceConverter implements IConverter {
             case DistanceTypes.Metres: {
                 switch (to) {
                     case DistanceTypes.Metres: {
-                        return value;
+                        return parseFloat(value);
                     }
                     case DistanceTypes.Miles: {
                         return this.ConvertMileMetre(value, false);
@@ -38,7 +62,7 @@ export default class DistanceConverter implements IConverter {
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Distance Convert Error';
                         }
                     }
                 }
@@ -52,12 +76,12 @@ export default class DistanceConverter implements IConverter {
                         return this.ConvertMileVerst(value, false);
                     }
                     case DistanceTypes.Versts: {
-                        return value;
+                        return parseFloat(value);
                     }
                     default: {
                         throw new class implements Error {
                             message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                            name: string = 'Convert Error';
+                            name: string = 'Distance Convert Error';
                         }
                     }
                 }
@@ -65,7 +89,7 @@ export default class DistanceConverter implements IConverter {
             default: {
                 throw new class implements Error {
                     message: string = `Cannot convert ${value} from ${from} to ${to}`;
-                    name: string = 'Convert Error';
+                    name: string = 'Distance Convert Error';
                 }
             }
         }
@@ -78,7 +102,7 @@ export default class DistanceConverter implements IConverter {
         * direction: boolean - if true, convert from miles to metres
          */
         const mileInMetre: number = 1609.34;
-        const num: number = Number(value);
+        const num: number = parseFloat(value);
         return direction ?
             num * mileInMetre :
             num / mileInMetre;
@@ -91,7 +115,7 @@ export default class DistanceConverter implements IConverter {
         * direction: boolean - if true, convert from miles to versts
          */
         const mileInVerst: number = 1.50857;
-        const num: number = Number(value);
+        const num: number = parseFloat(value);
         return direction ?
             num * mileInVerst :
             num / mileInVerst;
@@ -104,7 +128,7 @@ export default class DistanceConverter implements IConverter {
         * direction: boolean - if true, convert from metres to versts
          */
         const verstInMetre: number = 1066.8;
-        const num: number = Number(value);
+        const num: number = parseFloat(value);
         return direction ?
             num / verstInMetre :
             num * verstInMetre;
